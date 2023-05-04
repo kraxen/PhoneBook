@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "PhoneBook";
+}
+
+@model IPhoneBookModel
+
+<table class="table table-light table-striped">
+    <caption>
+    <tr>
+        <th>ID</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </caption>
+    @foreach (var node in Model.Nodes)
+    {
+        <tr>
+            <th><a asp-controller="PhoneBook" asp-action="Node" asp-route-id="@node.Id">@node.Id</a></th>
+            <th>@node.Suname</th>
+            <th>@node.Name</th>
+            <th>@node.Patronymic</th>
+            <th>
+                <a asp-controller="PhoneBook" asp-action="Change" asp-route-id="@node.Id">
+                    Изменить
+                </a>
+            </th>
+            <th>
+                <form method="post" asp-controller="PhoneBook" asp-action="Remove" asp-route-id="@node.Id">
+                    <input type="submit"  value="Удалить" />
+                </form>
+            </th>
+        </tr>
+    }
+</table>
+<a asp-controller="PhoneBook" asp-action="Add">Добавить пользователя</a>
