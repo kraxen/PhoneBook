@@ -21,7 +21,7 @@ namespace PhoneBook.Controllers
             return View(PhoneBook);
         }
         [HttpGet]
-        public IActionResult Node([FromQuery] int id)
+        public IActionResult Node( int id)
         {
             var node = PhoneBook.Nodes.FirstOrDefault(n => n.Id == id);
             if (node is not null)
@@ -44,7 +44,8 @@ namespace PhoneBook.Controllers
             PhoneBook.Add(phoneBookNode);
             return RedirectToAction("Index");
         }
-        public IActionResult Change([FromQuery] int id)
+        [HttpGet]
+        public IActionResult Change(int id)
         {
             var node = PhoneBook.Nodes.FirstOrDefault(n => n.Id == id);
             if (node is not null)
@@ -52,6 +53,7 @@ namespace PhoneBook.Controllers
             else return NotFound();
         }
         [HttpPost]
+        [HttpPut]
         public IActionResult Change(PhoneBookNode node)
         {
             PhoneBook.Change(node);
@@ -59,6 +61,7 @@ namespace PhoneBook.Controllers
         }
 
         [HttpPost]
+        [HttpDelete]
         public IActionResult Remove([FromQuery] int id)
         {
             var node = PhoneBook.Nodes.FirstOrDefault(n => n.Id == id);
